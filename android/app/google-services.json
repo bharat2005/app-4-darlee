@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "375008337668",
+    "project_id": "app4x-e1a91",
+    "storage_bucket": "app4x-e1a91.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375008337668:android:8f1cd32328f5127ac13a51",
+        "android_client_info": {
+          "package_name": "com.bharat2005.app4x"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375008337668-6nul8iqdprb320ob1h7qe84474imrm2a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bharat2005.app4x",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "375008337668-gseub831gje492bvmpa92apmm4flfkqc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9XfcHFGb3ZtWtCYwv9YpnGTPMRp6onvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375008337668-gseub831gje492bvmpa92apmm4flfkqc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
