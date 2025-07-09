@@ -1,4 +1,4 @@
-import { doc, setDoc } from "@react-native-firebase/firestore"
+import { doc, setDoc, Timestamp } from "@react-native-firebase/firestore"
 import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query"
 import { db } from "../services/firebase/firebaseConfig"
 import { useAuth } from "../contexts/AuthContextProvider"
@@ -10,7 +10,8 @@ export const useMutateDayLog = (day) => {
     return useMutation({
         mutationFn:async({data})=>{
             await setDoc(doc(db, 'users', user?.uid, 'dailyLogs', day ),{
-            ...data
+            ...data,
+            date: Timestamp.fromDate(new Date(day))
             }, {merge:true})
         },
         onSuccess:()=> {

@@ -8,7 +8,6 @@ import { useAreMarked } from '../../../hooks/useAreMarked';
 const MyCalenderList = ({onPress}) => {
   const {data, error} = useAreMarked()
 
- console.log(data)
 
    const renderHeader = (date) => (
       <View style={{height:40,width:'100%', justifyContent:'center', alignItems:'center'}}>

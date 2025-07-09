@@ -9,12 +9,8 @@ const getIndexByDay = (dateString) => {
   return (index + 6) % 7;
 };
 
-const MyWeekList = ({ handlePress }) => {
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split('T')[0]
-  );
+const MyWeekList = ({ handlePress, setSelectedDate, selectedDate }) => {
 
-  console.log(selectedDate)
 
   useEffect(() => {
     handlePress(getIndexByDay(selectedDate));
@@ -37,10 +33,7 @@ const MyWeekList = ({ handlePress }) => {
   return (
     <View style={{ }}>
   
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
-        <Button title="← Previous" onPress={goToPrevWeek} />
-        <Button title="Next →" onPress={goToNextWeek} />
-      </View>
+
 
       <GestureDetector gesture={panGesture} >
         <View collapsable={false} style={{height:120}}>
@@ -56,6 +49,11 @@ const MyWeekList = ({ handlePress }) => {
             }}
           />
         </CalendarProvider>
+
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
+        <Button title="Prev" onPress={goToPrevWeek} />
+        <Button title="Next" onPress={goToNextWeek} />
+      </View>
  </View>
       </GestureDetector>
     </View>

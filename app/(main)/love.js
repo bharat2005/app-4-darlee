@@ -1,10 +1,17 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { Button } from 'react-native-paper'
+import { useAuth } from '../../src/contexts/AuthContextProvider'
 
 const LOVE = () => {
+  const {logout} = useAuth()
   return (
-    <View>
-      <Text>LOVE</Text>
+    <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+      
+      <Button onPress={logout}>
+        Logout
+      </Button>
+      
     </View>
   )
 }
