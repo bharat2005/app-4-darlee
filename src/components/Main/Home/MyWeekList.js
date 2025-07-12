@@ -12,7 +12,7 @@ const getIndexByDay = (dateString) => {
 };
 
 const MyWeekList = ({ handlePress, setSelectedDate, selectedDate }) => {
-    const {data: periods, error} = usePeriods()
+    const {data: periods = [], error} = usePeriods()
 
 
 
@@ -43,17 +43,18 @@ const MyWeekList = ({ handlePress, setSelectedDate, selectedDate }) => {
       ovulation:'cyan',
       luteal:'gray'
     }
-
     periods.forEach(item => {
-      const range = eachDayOfInterval({start:parseISO(item?.start), end: parseISO(item?.start)})
-      range.forEach(dateString => {
-        markedObj[dateString] = {dotColor:colorTypes[item?.phase], marked:true}
+      const range = eachDayOfInterval({start:parseISO(item?.start), end: parseISO(item?.end)}).map(item => format(item, 'yyyy-MM-dd'))
+
+      range.forEach((dateString, index) => {
+        markedObj[dateString] = {color:colorTypes[item?.phase], startingDay:index === 0, endingDay: range.length - 1 === index, textColor: 'white', dotColor:'pink', marked:true }
       })
     })
-
     return markedObj
-
+    
   }
+
+
 
   return (
     <View>
@@ -66,7 +67,7 @@ const MyWeekList = ({ handlePress, setSelectedDate, selectedDate }) => {
        
         <CalendarProvider date={selectedDate}>
           <WeekCalendar
-         // markingType='simple'
+         markingType='period'
           markedDates={getMarkedDates()}
             firstDay={1}
             onDayPress={(day) => setSelectedDate(day.dateString)}

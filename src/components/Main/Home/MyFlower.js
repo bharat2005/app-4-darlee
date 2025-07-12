@@ -17,7 +17,7 @@ const MyFlower = ({dateString,isFuture}) => {
 
   }, [data])
 
-
+if(new Date(dateString) > new Date()) return
 
   if (!data || isLoading) {
 
