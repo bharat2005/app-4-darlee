@@ -1,12 +1,15 @@
 import { View, Text, Pressable } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import DayComponent from '../../Main/Calender/DayComponent';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import { format } from 'date-fns'
+import { eachDayOfInterval, format, parseISO } from 'date-fns'
 import { useAreMarked } from '../../../hooks/useAreMarked';
+import { usePeriods } from '../../../hooks/usePeriods'
+
 
 const MyCalenderList = ({onPress}) => {
   const {data, error} = useAreMarked()
+  const {data:periods} = usePeriods()
 
 
    const renderHeader = (date) => (
@@ -15,7 +18,26 @@ const MyCalenderList = ({onPress}) => {
       </View>
     )
 
-  
+    const getMarkedDates = () =>{
+      const markedObj = {}
+      const colorTypes = {
+      period: 'red',
+      follicular:'blue',
+      ovulation:'cyan',
+      luteal:'gray'
+    }
+
+      periods?.forEach(item => {
+      const range = eachDayOfInterval({start: parseISO(item?.start), end: parseISO(item?.end)}).map(item => format(item, 'yyyy-MM-dd'))
+      range.forEach((dateString, index) => {
+        markedObj[dateString] = {phaseColor: colorTypes[item?.phase] }
+      })
+      })
+
+      return markedObj
+      
+    }
+
 
 
   return (
@@ -23,8 +45,9 @@ const MyCalenderList = ({onPress}) => {
     <CalendarList
     renderHeader={renderHeader}
     futureScrollRange={2}
+    markedDates={getMarkedDates()}
     pastScrollRange={2}
-    dayComponent={({state, date})=> <DayComponent isMarked={data && data[date.dateString]}  onPress={onPress} state={state} date={date}/>}
+    dayComponent={({state, date, marking})=> <DayComponent phaseColor={marking?.phaseColor} isMarked={data && data[date.dateString]}  onPress={onPress} state={state} date={date}/>}
     theme={{
       textSectionTitleColor:'transparent'
     }}

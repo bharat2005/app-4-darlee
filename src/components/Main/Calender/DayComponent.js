@@ -4,7 +4,7 @@ import { router } from 'expo-router'
 import { useIsMarked } from '../../../hooks/useAreMarked'
 import { TextInput } from 'react-native-paper'
 
-const DayComponent = ({state, date, onPress, isMarked}) => {
+const DayComponent = ({state, date, onPress, isMarked, phaseColor}) => {
 
 
 
@@ -16,7 +16,7 @@ const DayComponent = ({state, date, onPress, isMarked}) => {
 
 
   return (
-    <Pressable onPress={handlePress} style={{height:50, width:'100%', justifyContent:'center' , alignItems:'center', backgroundColor: state === 'today' ? 'cyan' : 'white'}}>
+    <Pressable onPress={handlePress} style={{height:50, width:'100%', justifyContent:'center' , alignItems:'center', backgroundColor: state === 'today' ? 'cyan' : 'white', borderBottomColor:phaseColor, borderBottomWidth:5}}>
         <Text>{date.day}</Text>
 
         {isMarked && (
