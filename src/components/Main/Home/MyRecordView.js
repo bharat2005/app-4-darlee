@@ -2,9 +2,11 @@ import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native'
 import React, { useMemo } from 'react'
 import { useMyRecords } from '../../../hooks/useMyRecords'
 import { RotateOutUpLeft } from 'react-native-reanimated'
+import { homeSheetStore } from '../../../stores/homeSheetStore'
 
-const MyRecordView = ({selectedDate, onRecordPress}) => {
+const MyRecordView = ({selectedDate}) => {
     const {data} = useMyRecords(selectedDate)
+    const openSheet = homeSheetStore((state)=> state.openSheet)
 
     const newData = useMemo(()=> {
         if (!data) return false
@@ -25,7 +27,6 @@ const MyRecordView = ({selectedDate, onRecordPress}) => {
         <View key={index} style={{width:40}}>
             <Image style={{height:40, width:'100%', backgroundColor:'pink'}}/>
             <Text numberOfLines={1}>{item}</Text>
-
         </View>
     )
 
@@ -38,7 +39,7 @@ const MyRecordView = ({selectedDate, onRecordPress}) => {
 
                    <View style={{width:'100%', alignItems:'center', justifyContent:'center', marginTop:'auto'}}>
 
-            <TouchableOpacity onPress={onRecordPress} style={{justifyContent:'center', alignItems:'center', backgroundColor:'red', padding:12}} >
+            <TouchableOpacity onPress={()=> openSheet(selectedDate)} style={{justifyContent:'center', alignItems:'center', backgroundColor:'red', padding:12}} >
                 <Text>Record</Text>
             </TouchableOpacity>
 
@@ -58,11 +59,11 @@ const MyRecordView = ({selectedDate, onRecordPress}) => {
 
         {
             [...newData].map((item, index)=> (
-                <>
+                <React.Fragment key={index}>
                 {
                     renderItem({item, index})
                 }
-                </>
+                </React.Fragment>
             ))
         }
 
@@ -77,7 +78,7 @@ const MyRecordView = ({selectedDate, onRecordPress}) => {
     
         <View style={{width:'100%', alignItems:'center', justifyContent:'center', marginTop:'auto'}}>
 
-            <TouchableOpacity onPress={onRecordPress} style={{justifyContent:'center', alignItems:'center', backgroundColor:'red', padding:12}} >
+            <TouchableOpacity onPress={()=> openSheet(selectedDate)} style={{justifyContent:'center', alignItems:'center', backgroundColor:'red', padding:12}} >
                 <Text>Record</Text>
             </TouchableOpacity>
 

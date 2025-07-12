@@ -3,7 +3,7 @@ import React from 'react'
 import MyRecordView from './MyRecordView'
 import MyPredictionView from './MyPredictionView'
 
-const MyRecord = ({selectedDate, onRecordPress,isFuture}) => {
+const MyRecord = ({selectedDate,isFuture}) => {
 
 
 
@@ -15,7 +15,7 @@ const MyRecord = ({selectedDate, onRecordPress,isFuture}) => {
       ) : (
 
 
-        <MyRecordView selectedDate={selectedDate} onRecordPress={onRecordPress}   />
+        <MyRecordView selectedDate={selectedDate}   />
       )}
 
 

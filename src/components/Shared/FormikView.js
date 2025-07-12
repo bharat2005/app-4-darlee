@@ -34,7 +34,8 @@ const initialValues = {
 
 
 
-const FormikView = ({initialDateBack, mutate, selectedDate, sheetRef, mutateAsync}) => {
+const FormikView = ({initialDateBack, mutate, selectedDate,autoCloseSheet, mutateAsync}) => {
+    
     const validation = Yup.object({
         temperature: Yup.number().min(35, 'Tempereaturen should be between 35.00 and 41.00').max(41, 'Tempereaturen should be between 35.00 and 41.00'),
         weight: Yup.number().min(20, 'Weifght should be between 20.00 and 199.99').max(199, 'Weifght should be between 20.00 and 199.99'),
@@ -44,7 +45,8 @@ const FormikView = ({initialDateBack, mutate, selectedDate, sheetRef, mutateAsyn
     const handleSubmit = (values) => {
    
          mutate({data: values})
-        setTimeout(()=> sheetRef.current.close(), 500)
+         autoCloseSheet()
+        
 
       
     }

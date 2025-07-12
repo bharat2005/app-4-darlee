@@ -1,5 +1,5 @@
 import { View, Text, FlatList, Dimensions } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../src/contexts/AuthContextProvider";
 import { Button, withTheme } from "react-native-paper";
 import { db } from "../../src/services/firebase/firebaseConfig";
@@ -18,6 +18,8 @@ import Animated, {
 import MyWeekList from "../../src/components/Main/Home/MyWeekList";
 import MyRecord from "../../src/components/Main/Home/MyRecord";
 import MyBottomSheet from "../../src/components/Shared/MyBottomSheet";
+import { homeSheetStore } from '../../src/stores/homeSheetStore'
+import { router } from "expo-router";
 
 const TOTAL_ANGLE = 80;
 const ITEM_ANGLE = TOTAL_ANGLE / 6;
@@ -31,6 +33,26 @@ const Home = () => {
   const [selected, setSelected] = useState(0);
   const rotateValue = useSharedValue(-60);
   const popDownValue = useSharedValue(0);
+  const isOpen = homeSheetStore((state)=> state.isOpen )
+  const closeSheet = homeSheetStore(state => state.closeSheet)
+  const homeSheetDate = homeSheetStore(state => state.homeSheetDate)
+
+
+
+
+
+  useEffect(()=> {
+  if(isOpen && sheetRef.current ){
+    sheetRef.current.present()
+  }
+  if (!isOpen && sheetRef.current){
+    sheetRef.current.dismiss()
+  }
+
+  },[isOpen])
+
+
+
 
   const handlePress = (index) => {
     setSelected(index);
@@ -39,7 +61,7 @@ const Home = () => {
       rotateValue.value = withTiming(angle, { duration: 50 });
       popDownValue.value = withTiming(0, { duration: 400 });
     });
-  };
+  }
 
  
 
@@ -58,16 +80,16 @@ const Home = () => {
 
 
 
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, paddingTop:24 }}>
+ 
+        <MyChartView isFuture={new Date() <= new Date(selectedDate)} selectedDate={selectedDate}    /> 
 
-        <MyChartView />
-        
         <MyWeekList
           selected={selected}
           handlePress={handlePress}
           setSelectedDate={setSelectedDate}
           selectedDate={selectedDate}
-        />
+        /> 
 
         <View style={{ flex: 1, width: "100%" }}>
           <View
@@ -124,15 +146,22 @@ const Home = () => {
                 marginHorizontal: "auto",
                 marginTop: 8,
               }}
-            ></View>
+            >
+
+            <TouchableOpacity onPress={()=>router.push('/periodCalenderScreen')} style={{height:50, width:'100%', alignSelf:'center', backgroundColor:'black'}}>
+              <Text>Period</Text>
+            </TouchableOpacity>
+
+            </View>
 
 
-     <MyRecord isFuture={new Date() <= new Date(selectedDate)}  selectedDate={selectedDate} onRecordPress={()=> sheetRef.current.present()}/>
+     <MyRecord isFuture={new Date() <= new Date(selectedDate)} selectedDate={selectedDate} />
           </View>
         </View>
+        
       </View>
 
-          <MyBottomSheet sheetRef={sheetRef} selectedDate={selectedDate}  />
+           <MyBottomSheet  sheetRef={sheetRef} closeSheet={()=> closeSheet()} /> 
     </SafeAreaView>
   );
 };

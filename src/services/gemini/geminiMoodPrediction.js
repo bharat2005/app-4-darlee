@@ -71,7 +71,7 @@ Only choose from these categories:
 
         )
 
-      const cleandedResponse = responseClener(geminiReturn?.data?.candidates?.[0].content?.parts?.[0]?.text)
+      const cleandedResponse = responseClener(geminiReturn?.data?.candidates?.[0].content?.parts?.[0]?.text, 'object')
   
      await setDoc(doc(db, 'users', auth?.currentUser?.uid, 'predictedMoods', weekKey),{
         ...cleandedResponse

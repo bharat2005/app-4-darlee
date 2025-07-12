@@ -3,6 +3,7 @@ import React from 'react'
 import OptionHeader from './OptionHeader'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import SubOptions from './SubOptions';
+import { router } from 'expo-router';
 
 const BoolOptionSelector = ({value, onButtonPress, onOptionPress , data, discharge, bool}) => {
 
@@ -44,6 +45,11 @@ const renderTitleOptions = ({item, index}) => (
                 <Text>During Mensurration</Text>
 
             </TouchableOpacity>
+
+
+               <TouchableOpacity onPress={router.push('/periodCalenderScreen')} style={{height:50, width:'100%', position:'absolute', backgroundColor:'black', right:18}}>
+                          <Text>Period</Text>
+              </TouchableOpacity>
 
         </View>
   )

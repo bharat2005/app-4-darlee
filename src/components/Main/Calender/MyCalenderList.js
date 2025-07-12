@@ -22,8 +22,8 @@ const MyCalenderList = ({onPress}) => {
     <View style={{flex:1}}>
     <CalendarList
     renderHeader={renderHeader}
-    futureScrollRange={3}
-    pastScrollRange={3}
+    futureScrollRange={2}
+    pastScrollRange={2}
     dayComponent={({state, date})=> <DayComponent isMarked={data && data[date.dateString]}  onPress={onPress} state={state} date={date}/>}
     theme={{
       textSectionTitleColor:'transparent'

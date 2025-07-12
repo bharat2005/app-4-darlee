@@ -1,7 +1,7 @@
-export const responseClener = (string) => {
+export const responseClener = (string, dataType) => {
 
-    const start = string.indexOf('{')
-    const end = string.lastIndexOf('}')
+    const start = string.indexOf(dataType === 'object' ? '{' : '[')
+    const end = string.lastIndexOf(dataType === 'object' ? '}' : ']')
 
     const a = string.slice(start, end + 1)
 

@@ -1,11 +1,23 @@
-import { View, Text } from 'react-native'
+import { View, Text, FlatList, Dimensions } from 'react-native'
 import React from 'react'
+import MyFlower from './MyFlower'
+import { dateToWeek } from '../../../utils/dateToWeek'
 
-const MyCharView = () => {
+
+const MyCharView = ({selectedDate, isFuture}) => {
+    const weekArray = dateToWeek(selectedDate)
+
+
   return (
-    <View style={{width:'100%', height:160, backgroundColor:'gray'}}>
+    <View>
 
-        
+        <FlatList
+        scrollEnabled={false}
+        data={[...weekArray]}
+        horizontal
+        contentContainerStyle={{width:Dimensions.get('screen').width,height:100, paddingHorizontal:14}}
+        renderItem={({item, index})=> <MyFlower dateString={item} isFuture={isFuture} /> }
+        />
       
     </View>
   )

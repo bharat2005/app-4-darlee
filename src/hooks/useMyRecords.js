@@ -11,8 +11,6 @@ export const useMyRecords = (selectedDate) => {
         queryFn:async()=>{
             const res = await getDoc(doc(db, 'users', user?.uid, 'dailyLogs', selectedDate))
             return res.data() || false
-            
-
         },
         enabled: !!selectedDate
     })

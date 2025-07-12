@@ -6,7 +6,7 @@ import TabScreenTopBar from './TabScreenTopBar';
 import MyBottomSheetView from './MyBottomSheetView';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const MyBottomSheet = ({sheetRef, selectedDate}) => {
+const MyBottomSheet = ({  sheetRef, closeSheet}) => {
   const insets = useSafeAreaInsets()
 
   return (
@@ -14,13 +14,14 @@ const MyBottomSheet = ({sheetRef, selectedDate}) => {
 enablePanDownToClose={true}
 enableContentPanningGesture={false}
 snapPoints={['96%']}
+onDismiss={()=> closeSheet()}
 ref={sheetRef}
 >
-    <BottomSheetView style={{height:'100%', width:'100%', paddingBottom:insets.bottom + 20,}}>
+    <BottomSheetView  style={{height:'100%', width:'100%', paddingBottom:insets.bottom + 20,}}>
       <KeyboardAvoidingView style={{flex:1}} behavior='padding' keyboardVerticalOffset={insets.bottom + 20}>
 
 
-    <MyBottomSheetView sheetRef={sheetRef} selectedDate={selectedDate}  />
+    <MyBottomSheetView  />
 
 
       </KeyboardAvoidingView>

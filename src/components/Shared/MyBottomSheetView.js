@@ -4,10 +4,13 @@ import MyBottomSheetViewHeader from './MyBottomSheetViewHeader'
 import { useMutateDayLog } from '../../hooks/useMutateDayLog'
 import { useDayLog } from '../../hooks/useDayLog'
 import FormikView, {} from '../../components/Shared/FormikView'
+import { homeSheetStore } from '../../stores/homeSheetStore'
 
-const MyBottomSheetView = ({sheetRef, selectedDate}) => {
-        const {mutate, error:er, mutateAsync} = useMutateDayLog(selectedDate)
-        const {data, error} = useDayLog(selectedDate)
+const MyBottomSheetView = () => {
+        const closeSheet = homeSheetStore(state => state.closeSheet)
+        const homeSheetDate = homeSheetStore(state => state.homeSheetDate)
+        const {mutate, error:er, mutateAsync} = useMutateDayLog(homeSheetDate)
+        const {data, error} = useDayLog(homeSheetDate)
 
 
 
@@ -15,15 +18,12 @@ const MyBottomSheetView = ({sheetRef, selectedDate}) => {
   return (
     <View style={{flex:1}}>
    
- <MyBottomSheetViewHeader onClosePress={()=> sheetRef.current.dismiss()}/>
+ <MyBottomSheetViewHeader onClosePress={()=>closeSheet()}/>
         
-<Text style={{textAlign:'center'}}>{selectedDate}</Text>
+<Text style={{textAlign:'center'}}>{homeSheetDate}</Text>
 
 
-<FormikView mutate={mutate} mutateAsync={mutateAsync} initialDateBack={data} selectedDate={selectedDate} sheetRef={sheetRef}  /> 
-
-
-
+<FormikView mutate={mutate} mutateAsync={mutateAsync} initialDateBack={data} selectedDate={homeSheetDate}  autoCloseSheet={()=> setTimeout(()=> closeSheet(), 500)}  /> 
 
     </View>
   )
