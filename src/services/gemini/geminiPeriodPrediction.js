@@ -2,9 +2,11 @@ import { collection, doc, getDoc, getDocs, limit, orderBy, query, serverTimestam
 import { auth, db } from "../firebase/firebaseConfig"
 import axios from "axios"
 import { responseClener } from '../../utils/responseCleaner'
+import { format } from "date-fns"
 
 export const geminiPeriodPrediction = async() => {
     try{
+        const today = format(new Date(), 'yyyy-MM-dd')
 
         const q = query(collection(db, 'users', auth?.currentUser?.uid, 'cycles'), where('source' ,'==', 'user'), orderBy('createdAt', 'desc'), limit(3))
         const res = await getDocs(q)
@@ -12,7 +14,7 @@ export const geminiPeriodPrediction = async() => {
         const prompt = `
 You are a menstrual cycle assistant. 
 Based on the last 3 user-recorded menstrual periods I’ll provide below (with 'start' and 'end' dates), 
-predict the next **two full menstrual cycles**, including the following phases:
+predict the next **two full menstrual cycles** relative to todays date ${today}, including the following phases:
 
 - period
 - follicular
@@ -32,7 +34,7 @@ Avoid extra text – return only a JSON array. Example:
   { "start": "2025-07-15", "end": "2025-07-19", "phase": "follicular", "source": "predictor" },
   ...
 ]
-`
+`.trim()
 
         const geminiReturn = await axios.post(
             'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=AIzaSyBq12lR43iJ9lSAhEZxIyyUzo0nOEIfPW4',

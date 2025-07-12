@@ -8,7 +8,7 @@ import { usePeriods } from '../../src/hooks/usePeriods'
 
 const PeirodCalenderScrren = () => {
       const {data =[], error} = usePeriods()
-      const [periods, setPeriods] = useState(data )
+      const [periods, setPeriods] = useState(data)
 
 
   return (

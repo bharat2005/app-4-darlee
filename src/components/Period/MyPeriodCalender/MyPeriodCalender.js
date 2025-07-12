@@ -60,7 +60,7 @@ const MyPeriodCalender = ({setPeriods, periods}) => {
         })
       })
 
-      if(currentStart && periods.some(p => p?.start !== currentStart)){
+      if(currentStart && (periods.some(p => p?.start !== currentStart) || periods.length === 0 )){
         markedObj[currentStart] = {startingDay: true, endingDay:true,  color:'pink', textColor:'white'}
       }
       return markedObj
