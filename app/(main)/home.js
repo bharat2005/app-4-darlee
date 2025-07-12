@@ -20,6 +20,7 @@ import MyRecord from "../../src/components/Main/Home/MyRecord";
 import MyBottomSheet from "../../src/components/Shared/MyBottomSheet";
 import { homeSheetStore } from '../../src/stores/homeSheetStore'
 import { router } from "expo-router";
+import InCircleView from "../../src/components/Main/Home/InCircleView";
 
 const TOTAL_ANGLE = 80;
 const ITEM_ANGLE = TOTAL_ANGLE / 6;
@@ -147,10 +148,9 @@ const Home = () => {
                 marginTop: 8,
               }}
             >
+              <InCircleView selectedDate={selectedDate}  />
 
-            <TouchableOpacity onPress={()=>router.push('/periodCalenderScreen')} style={{height:50, width:'100%', alignSelf:'center', backgroundColor:'black'}}>
-              <Text>Period</Text>
-            </TouchableOpacity>
+       
 
             </View>
 
