@@ -83,7 +83,7 @@ const Home = () => {
 
       <View style={{ flex: 1, paddingTop:24 }}>
  
-        <MyChartView isFuture={new Date() <= new Date(selectedDate)} selectedDate={selectedDate}    /> 
+        <MyChartView selectedDate={selectedDate}    /> 
 
         <MyWeekList
           selected={selected}

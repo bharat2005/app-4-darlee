@@ -4,9 +4,8 @@ import { useMyRecords } from '../../../hooks/useMyRecords'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { homeSheetStore } from '../../../stores/homeSheetStore';
 
-const MyFlower = ({dateString,isFuture}) => {
-  if(isFuture) return
-  
+const MyFlower = ({dateString}) => {
+
   const {data, isLoading} = useMyRecords(dateString)
   const openSheet = homeSheetStore((state)=> state.openSheet)
 
