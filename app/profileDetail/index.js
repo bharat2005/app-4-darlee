@@ -7,20 +7,12 @@ import { router } from 'expo-router'
 const accountSettingsData = [
   {
     label:'NickName',
-    id: 'nickname'
+    id: 'name'
   },
   {
     label:'Date of Birth',
     id: 'dob'
-  },
-  {
-    label:'Email Address',
-    id: 'email'
-  },
-  {
-    label:'Password',
-    id: 'password'
-  },
+  }
 ]
 
 const ProfileDetails = () => {

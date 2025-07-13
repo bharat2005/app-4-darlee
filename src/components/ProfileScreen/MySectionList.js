@@ -23,11 +23,11 @@ const sectionListData =  [
             data: [
                 {
                     label: 'Terms',
-                    onPress:()=>router.push({pathname:'/T&PScreen', params:{id: 'terms'}})
+                    onPress:()=>router.push({pathname:'/TPScreen', params:{id: 'terms'}})
                 },
                 {
                     label: 'Privacy Procily',
-                   onPress:()=>router.push({pathname:'/T&PScreen', params:{id: 'privacy'}})
+                   onPress:()=>router.push({pathname:'/TPScreen', params:{id: 'privacy'}})
                 },
 
             ]
