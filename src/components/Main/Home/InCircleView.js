@@ -5,7 +5,7 @@ import { usePeriods } from '../../../hooks/usePeriods'
 import { differenceInCalendarDays, isAfter, isWithinInterval, parse, parseISO } from 'date-fns'
 
 const InCircleView = ({selectedDate}) => {
-    console.log(selectedDate)
+  
     const {data:periods} = usePeriods()
     const textMessage = useMemo(()=> {
         if(periods?.length > 0){

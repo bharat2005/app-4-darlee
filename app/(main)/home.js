@@ -77,7 +77,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "pink" }} edges={["top"]}>
-      <TabScreenTopBar title="Home" />
+      <TabScreenTopBar title="Home" origin={'home'} />
 
 
 
