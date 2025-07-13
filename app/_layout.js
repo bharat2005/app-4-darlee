@@ -35,6 +35,7 @@ export default function RootLayout() {
                   <Stack.Screen name="profileScreen" />
                   <Stack.Screen name="profileDetail" />
                   <Stack.Screen name="settingsScreen" />
+                  <Stack.Screen name="TPScreen" />
                 </Stack>
                 <Toast
                   config={{

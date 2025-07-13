@@ -1,9 +1,18 @@
-import { View, Text, SectionList, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, SectionList, TouchableOpacity, Modal } from 'react-native'
+import React, { useState } from 'react'
 import { router } from 'expo-router'
+import { Button } from 'react-native-paper'
+import { useAuth } from '../../contexts/AuthContextProvider'
 
 
-const sectionListData =  [
+
+
+const MySectionList = ({userId}) => {
+  const [open, setOpen] = useState(false)
+  const [modalType, setModalType] = useState('')
+  const {logout, deleteAccount} = useAuth()
+
+  const sectionListData =  [
         {
             title:'Account',
             data: [
@@ -37,21 +46,26 @@ const sectionListData =  [
             data: [
                 {
                     label: 'Logout',
-                    danger: true
+                    danger: true,
+                    onPress:()=> {
+                      setModalType('logout')
+                      setOpen(true)
+                    }
                  
                 },
                 {
                     label: 'Delete Account',
-                    danger:true
+                    danger:true,
+                    onPress:()=>{
+                      setModalType('delete')
+                      setOpen(true)
+                    }
                   
                 },
 
             ]
         },
 ]
-
-const MySectionList = ({userId}) => {
-
 
 
   
@@ -86,6 +100,27 @@ const MySectionList = ({userId}) => {
               renderItem={renderItem}
         
               />
+
+
+              <Modal transparent backdropColor={1} visible={open} animationType='fade'>
+                <View style={{alignSelf:'center', backgroundColor:'white', marginVertical:'auto', height:200, width:240, borderRadius:12 , justifyContent:'space-between'}}>
+                  {
+                    modalType === 'logout' ? (
+                      <Text>From logout</Text>
+                    ): (
+                      <Text>From Delete</Text>
+                    )
+                  }
+
+                  <Button onPress={()=> setOpen(false)} mode='outlined' style={{width:'100%', height:50}} contentStyle={{height:50, width:'100%'}} >
+                    Cancel
+                  </Button>
+                  <Button onPress={modalType === 'logout' ? logout : deleteAccount} mode='contained' style={{width:'100%', height:50}} contentStyle={{height:50, width:'100%'}} >
+                    {modalType === 'logout' ? 'Logout' : 'Delted'}
+                  </Button>
+
+                </View>
+              </Modal>
         
         
               

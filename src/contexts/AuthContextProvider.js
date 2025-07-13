@@ -1,10 +1,10 @@
 import { View, Text, Alert } from 'react-native'
 import React, { createContext, use, useContext, useEffect, useState } from 'react'
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithCredential, signInWithEmailAndPassword, signOut } from '@react-native-firebase/auth'
+import { createUserWithEmailAndPassword, deleteUser, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithCredential, signInWithEmailAndPassword, signOut } from '@react-native-firebase/auth'
 import {db, auth} from '../services/firebase/firebaseConfig'
 import { router, useNavigation } from 'expo-router'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
-import {  doc, getDoc, serverTimestamp, setDoc, Timestamp, updateDoc } from '@react-native-firebase/firestore'
+import {  deleteDoc, doc, getDoc, serverTimestamp, setDoc, Timestamp, updateDoc } from '@react-native-firebase/firestore'
 import { CommonActions } from '@react-navigation/native'
 
 
@@ -147,10 +147,22 @@ const AuthContextProvider = ({children}) => {
     }
 
 
+    const deleteAccount = async() => {
+        try{
+
+            await deleteDoc(doc(db, 'users', user?.uid))
+            await deleteUser(auth.currentUser)
+
+        }catch(err){
+            console.log("ERrror frm deleteAccount", err.message)
+        }
+    }
+
+
 
 
   return (
-<AuthContext.Provider value={{googleLogin, user, logout, registerWithEmail, loginWithEmail, userProfileBuild, forgetPassword}}>
+<AuthContext.Provider value={{googleLogin, user, logout, registerWithEmail, loginWithEmail, userProfileBuild, forgetPassword, deleteAccount}}>
     {children}
 </AuthContext.Provider>
   )
